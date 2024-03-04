@@ -1,0 +1,191 @@
+#!/bin/bash
+
+while true; do
+
+
+      echo "Enter 1 to create Directory"
+      echo "Enter 2 to modify Directory"
+      echo "Enter 3 Navigate Directory"
+      echo "Enter 4 List of Directory"
+      echo "Enter 5 for Present working Directory"
+      echo "enter 6 for Permission of Directory"
+      echo "Enter 7 to exit"
+
+      read -p "Enter 1/2/3/4/5/6/7 : " a
+
+      case $a in
+
+            1)
+            read -p "Enter the name of the directory : " dirname
+            mkdir "$dirname"
+            echo "Directory created successfully."
+            echo ls -l | grep -i "$dirname"
+      ;;
+
+            2)
+            echo "In Modify Directory"
+            qq=1;
+            while(($qq==1)); do
+
+            echo "Press 1 to Rename"
+            echo "Press 2 to Copy"
+            echo "Press 3 to Move"
+            echo "Press 4 to delete"
+            echo "Press 5 to exit"
+
+            read -p "Enter 1/2/3/4/5 : " m
+            case $m in
+            1)
+            ls -la
+            read -p "Enter name of the file to be renamed : " dirname
+            read -p "Enter new name : " newname
+            mv "$dirname" "$newname"
+            ;;
+            2)
+            pwd
+            ls
+            read -p "Enter source path of directory : " spath
+            read -p "Enter destination path of directory : " dpath
+            cp -r "$spath" "$dpath"
+            cd ..
+            cd "$dpath"
+            ls
+            ;;
+            3)
+            ls -la
+            read -p "Enter source path of directory : " oldname
+            read -p "Enter destination path of directory : " newname
+            mv -v "$oldname" "$newname"
+            ls -la
+            ;;
+            4)
+            ls -la
+            read -p "Enter name of Directory to be deleted : " dirname
+            rm -r "$dirname"
+            ls -la
+            ;;
+            5)
+            echo "Exiting the Program"
+            qq=0
+            ;;
+            *)
+            echo "Enter a valid key."
+            ;;
+            esac
+            done
+            ;;
+
+            3)
+            echo "In Navigation"
+            qq1=1;
+            while(($qq1==1)); do
+                  echo "Press 1 to goto Parent Directory"
+                  echo "Press 2 to go to specific path"
+                  echo "Press 3 to exit"
+
+                  read -p "Enter 1/2/3 : " n
+
+                  case $n in
+                  1)
+                  pwd
+                  cd ..
+                  pwd
+                  ;;
+                  2)
+                  pwd
+                  read -p "Provide path of directory : " dirpath
+                  cd ..
+                  cd "$dirpath"
+                  pwd
+                  ;;
+                  3)
+                  echo "Exiting the Program"
+                  qq1=0
+                  ;;
+                  *)
+                  echo "Enter a valid Key."
+                  ;;
+                  esac
+            done
+            ;;
+
+            4)
+            echo "List"
+            qq2=1;
+            while(($qq2==1)); do
+            echo "Press 1 to list all directories"
+            echo "Press 2 to list details of all directories"
+            echo "Press 3 to see hidden directories"
+            echo "Press 4 to exit"
+
+            read -p "Enter 1/2/3/4 : " liss
+
+            case $liss in
+            1)
+            ls
+            ;;
+            2)
+            ls -l
+            ;;
+            3)
+            ls -a | grep "^\."
+            ;;
+            4)
+            echo "Exiting the program"
+            qq2=0
+            ;;
+            *)
+            echo "Enter a valid Key"
+            ;;
+            esac
+            done
+            ;;
+
+            5)
+            pwd
+            ;;
+
+            6)
+            echo "Permissions"
+            qq3=1;
+            while(($qq3==1)); do
+                  echo "Press 1 to add"
+                  echo "Press 2 to revoke"
+                  echo "Press 3 to exit"
+
+                  read -p "Enter 1/2/3 : " permm
+
+                  case $permm in
+                  1)
+                  ls -l
+                  read -p "Enter the name of directory : " dirname
+                  read -p "enter r/m/w : " myy
+                  chmod +"$myy" "$dirname"
+                  ;;
+                  2)
+                  ls -l
+                  read -p "Enter the name of directory : " dirname
+                  read -p "enter r/m/w : " myy
+                  chmod -"$myy" "$dirname"
+                  ;;
+                  3)
+                  echo "Exiting the program"
+                  qq3=0
+                  ;;
+                  *)
+                  echo "Enter a valid key"
+                  ;;
+                  esac
+            done
+            ;;
+
+            7)
+            echo "Exiting the Program"
+            exit 0
+            ;;
+
+            *)
+            echo "Enter a valid key."
+            ;;
+            esac
+      done
